@@ -1,0 +1,157 @@
+---
+import Base from "../layouts/Base.astro";
+import { razor, servicos, barbeiros, galeria, brl } from "../data/razor";
+const wa = `https://wa.me/${razor.whatsapp}?text=${encodeURIComponent("Olá! Quero agendar um horário.")}`;
+---
+<Base>
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-linha bg-carvao/90 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+      <a href="#" class="flex items-center gap-3">
+        <img src="/logo2.png" alt="" class="h-8 w-8 object-contain" />
+        <span class="font-display text-2xl font-semibold tracking-wide">{razor.name}</span>
+      </a>
+      <nav class="hidden gap-8 text-sm font-medium md:flex">
+        <a href="#sobre" class="hover:text-areia">Sobre</a>
+        <a href="#servicos" class="hover:text-areia">Serviços</a>
+        <a href="#estilo" class="hover:text-areia">Estilo</a>
+        <a href="#barbeiros" class="hover:text-areia">Barbeiros</a>
+      </nav>
+      <a data-wa href={wa} class="bg-bordo px-5 py-2 text-sm font-semibold hover:bg-bordo2">Agendar</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative flex min-h-screen items-end">
+    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1800&q=75"
+         alt="" class="absolute inset-0 h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-carvao via-carvao/70 to-carvao/30"></div>
+    <div class="hero-in relative mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
+      <h1 class="font-display text-6xl font-bold uppercase leading-[0.92] md:text-9xl">
+        Cada corte<br />é um ritual.
+      </h1>
+      <p class="mt-6 max-w-md text-lg text-osso/80">{razor.tagline} Barbearia clássica em São Paulo, com hora marcada.</p>
+      <div class="mt-9 flex flex-wrap gap-4">
+        <a href="#servicos" class="bg-bordo px-8 py-3.5 font-semibold hover:bg-bordo2">Montar meu horário</a>
+        <a href="#sobre" class="border border-osso/50 px-8 py-3.5 font-semibold hover:bg-osso hover:text-carvao">Conhecer a casa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-2 md:items-center">
+    <div>
+      <h2 class="font-display text-5xl font-semibold uppercase leading-none">A tradição não se cria. Se mantém.</h2>
+      <p class="mt-6 max-w-prose text-lg leading-relaxed text-areia">
+        A Avus Razor une precisão moderna e tradição clássica. Mais que uma barbearia, é um clube masculino onde cada corte é tratado como ritual: ambiente escuro, couro, madeira e silêncio.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1000&q=75"
+         alt="Barbeiro trabalhando" loading="lazy" width="1000" height="700" class="h-[420px] w-full object-cover" />
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="bg-carvao2 py-24">
+    <div data-board data-number={razor.whatsapp} class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[1.4fr_1fr]">
+      <div>
+        <h2 class="font-display text-5xl font-semibold uppercase leading-none">Monte seu horário</h2>
+        <p class="mt-3 text-areia">Escolha um ou mais serviços e, se quiser, o barbeiro.</p>
+
+        <ul class="mt-8 divide-y divide-linha border-y border-linha">
+          {servicos.map((s) => (
+            <li>
+              <button data-service data-name={s.nome} data-price={s.preco} data-min={s.min} aria-pressed="false"
+                class="group flex w-full items-center justify-between gap-6 px-2 py-5 text-left aria-pressed:bg-bordo/25">
+                <span>
+                  <span class="block font-display text-2xl font-semibold">{s.nome}</span>
+                  <span class="block text-sm text-areia">{s.desc} · {s.min} min</span>
+                </span>
+                <span class="flex items-center gap-4">
+                  <span class="font-display text-2xl font-semibold">{brl(s.preco)}</span>
+                  <span aria-hidden="true" class="grid h-6 w-6 place-items-center border border-osso/50 text-sm group-aria-pressed:border-bordo group-aria-pressed:bg-bordo">
+                    <span class="hidden group-aria-pressed:inline">✓</span>
+                  </span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        <p class="mt-8 font-semibold">Barbeiro (opcional)</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {barbeiros.map((b) => (
+            <button data-barber data-name={b.nome} aria-pressed="false"
+              class="border border-linha px-4 py-2 text-sm font-medium hover:border-osso/60 aria-pressed:border-bordo aria-pressed:bg-bordo">
+              {b.nome}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <aside class="self-start border border-linha p-8 lg:sticky lg:top-24">
+        <p class="text-areia">Total estimado</p>
+        <p data-total class="font-display text-6xl font-bold">R$ 0</p>
+        <p class="mt-1 text-sm text-areia">Duração: <span data-min>–</span></p>
+        <a data-wa href={wa} class="mt-8 block bg-bordo px-8 py-4 text-center font-semibold hover:bg-bordo2">Agendar pelo WhatsApp</a>
+        <p class="mt-4 text-sm text-areia">{razor.horario}</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ESTILO -->
+  <section id="estilo" class="mx-auto max-w-6xl px-6 py-24">
+    <h2 class="font-display text-5xl font-semibold uppercase leading-none">Estilo</h2>
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {galeria.map((src) => <img src={src} alt="Trabalho da barbearia" loading="lazy" width="800" height="1000" class="h-96 w-full object-cover" />)}
+    </div>
+  </section>
+
+  <!-- BARBEIROS -->
+  <section id="barbeiros" class="bg-carvao2 py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 class="font-display text-5xl font-semibold uppercase leading-none">Barbeiros</h2>
+      <ul class="mt-10 grid gap-6 md:grid-cols-3">
+        {barbeiros.map((b) => (
+          <li class="border-t-2 border-bordo pt-4">
+            <p class="font-display text-3xl font-semibold">{b.nome}</p>
+            <p class="text-areia">{b.esp}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-6 py-28 text-center">
+    <h2 class="mx-auto max-w-3xl font-display text-5xl font-bold uppercase leading-[0.95] md:text-7xl">
+      Você não agenda horário. Você entra para a tradição.
+    </h2>
+    <a data-wa href={wa} class="mt-10 inline-block bg-bordo px-10 py-4 font-semibold hover:bg-bordo2">Agendar agora</a>
+  </section>
+
+  <footer class="border-t border-linha px-6 py-14">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
+      <div>
+        <p class="font-display text-3xl font-semibold">{razor.name}</p>
+        <p class="mt-3 max-w-xs text-sm text-areia">Barbearia clássica para homens que valorizam presença.</p>
+      </div>
+      <ul class="space-y-2 text-sm text-areia">
+        <li><a href="#sobre" class="hover:text-osso">Sobre</a></li>
+        <li><a href="#servicos" class="hover:text-osso">Serviços</a></li>
+        <li><a href="#estilo" class="hover:text-osso">Estilo</a></li>
+        <li><a href="#barbeiros" class="hover:text-osso">Barbeiros</a></li>
+      </ul>
+      <div class="text-sm text-areia">
+        <p>{razor.address}</p>
+        <p>{razor.horario}</p>
+        <a data-wa href={wa} class="mt-4 inline-block border border-osso/50 px-6 py-2 text-osso hover:bg-osso hover:text-carvao">WhatsApp</a>
+      </div>
+    </div>
+    <p class="mx-auto mt-12 max-w-6xl border-t border-linha pt-6 text-xs text-areia/70">
+      © 2026 {razor.name}. Todos os direitos reservados. Desenvolvido por <a class="underline hover:text-osso" href="https://avusdigital.vercel.app/">Avus Digital</a>.
+    </p>
+  </footer>
+
+  <a data-wa href={wa} aria-label="Falar no WhatsApp" class="fixed bottom-6 right-6 bg-bordo px-5 py-3 text-sm font-semibold shadow-lg hover:bg-bordo2">WhatsApp</a>
+
+  <script>import "../scripts/main.ts";</script>
+</Base>

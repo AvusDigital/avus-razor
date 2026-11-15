@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect width="256" height="256" rx="48" fill="#181614"/>
+  <circle cx="128" cy="128" r="118" fill="none" stroke="#EDE6DA" stroke-width="5"/>
+  <circle cx="128" cy="128" r="106" fill="none" stroke="#8C2B2F" stroke-width="1.5"/>
+  <g transform="rotate(-38 128 128)">
+    <!-- cabo -->
+    <rect x="46" y="119" width="88" height="18" rx="9" fill="#EDE6DA"/>
+    <!-- lâmina -->
+    <path d="M140 112 H206 Q218 112 214 124 Q211 136 200 138 H140 Z" fill="#EDE6DA"/>
+    <rect x="140" y="135" width="62" height="3.5" fill="#8C2B2F"/>
+    <!-- pino -->
+    <circle cx="138" cy="128" r="6" fill="#181614"/>
+    <circle cx="138" cy="128" r="2.5" fill="#8C2B2F"/>
+  </g>
+  <path d="M84 196 H172" stroke="#EDE6DA" stroke-width="2" opacity=".5"/>
+</svg>

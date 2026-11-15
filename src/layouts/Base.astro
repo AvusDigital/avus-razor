@@ -1,0 +1,29 @@
+---
+import "../styles/global.css";
+import { razor } from "../data/razor";
+interface Props { title?: string; description?: string }
+const { title = `${razor.name} | Barbearia em São Paulo`, description = "Corte clássico, barba tradicional e atendimento com hora marcada. Escolha o serviço e agende pelo WhatsApp." } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="theme-color" content="#181614" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org", "@type": "BarberShop", name: razor.name,
+      address: razor.address, url: Astro.site?.toString(),
+    })} />
+  </head>
+  <body><slot /></body>
+</html>
